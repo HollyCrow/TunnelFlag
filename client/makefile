@@ -1,4 +1,5 @@
 output: main.o objects utils game camera
+	mkdir bin
 	g++ *.o -o bin/output -lSDL2
 
 main.o: src/main.cpp
