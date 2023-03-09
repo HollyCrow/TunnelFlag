@@ -9,7 +9,7 @@
 
 class Camera{
 public:
-    float scale = 1;
+    float scale = 2;
 
     Camera();
 
