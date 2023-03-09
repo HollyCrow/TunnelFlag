@@ -28,6 +28,14 @@ int main(){
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer,1,1);
     SDL_SetWindowTitle(window, "Tunnel Flag");
+    game.local_player.set_position(Vector2(100, 100));
+    game.local_player.scale = Vector2(100, 100);
+    Camera camera;
+    camera.draw_game();
+//    camera.rescale_window(400, 400);
+//    camera.draw_game();
+
+    //SDL_Delay(3000);
 
     return 0;
 }
