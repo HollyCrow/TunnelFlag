@@ -11,7 +11,7 @@
 
 class Camera{
 public:
-    float scale = 2;
+    float scale = 1;
     bool close = false;
 
     Camera();
@@ -20,9 +20,6 @@ public:
 
     void draw_game();
 
-private:
-    Vector2 modifier;
-    SDL_Rect p;
 
 };
 
