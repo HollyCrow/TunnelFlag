@@ -26,6 +26,16 @@ void Vector2::add(Vector2 addition){
     this->y += addition.y;
 };
 
+Vector2 Vector2::get_add(double x, double y){
+    return Vector2(this->x+x, this->y+y);
+}
+
+
+Vector2 Vector2::get_add(Vector2 addition){
+    return Vector2(this->x+addition.x, this->y+addition.y);
+}
+
+
 void Vector2::minus(double x, double y){
     this->x -= x;
     this->y -= y;
