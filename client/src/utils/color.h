@@ -28,8 +28,6 @@ public:
 
     Color(uint8_t, uint8_t, uint8_t, uint8_t);
 
-
-    int,int,int,int get_color()
 };
 
 
