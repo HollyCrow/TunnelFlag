@@ -1,2 +1,2 @@
 make
-bin/output
+bin/output.rar
