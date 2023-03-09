@@ -24,3 +24,6 @@ void Object::set_position(Vector2 new_position){
 void Object::move(Vector2 addition){
     this->position.add(addition);
 }
+void Object::update_position(){
+    this->move(velocity);
+}
