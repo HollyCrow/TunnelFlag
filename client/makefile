@@ -1,7 +1,7 @@
 
 
 
-output: main.o objects utils
+output: main.o objects utils game
 	g++ main.o vector2.o -o bin/output -lSDL2
 
 main.o: src/main.cpp
@@ -13,7 +13,8 @@ objects: src/objects/*.cpp src/objects/*.h
 utils: src/utils/*.cpp src/utils/*.h
 	g++ -c src/utils/*.cpp
 
-
+game: src/game/*.cpp src/game/*.h
+	g++ -c src/game/*.cpp
 
 
 clean:
