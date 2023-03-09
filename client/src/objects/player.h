@@ -13,8 +13,13 @@
 
 class Player: Object{
 public:
+    Player();
+    Player(Vector2, bool);
+
     void set_walk_speed(float);
     float get_walk_speed();
+
+
 
 
 private:
