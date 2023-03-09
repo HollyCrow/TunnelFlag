@@ -1,8 +1,11 @@
+# Build
 output: main.o objects utils game camera
-	mkdir bin
-	g++ *.o -o bin/output -lSDL2
+	mkdir -p bin
+	mv *.o ./build
+	g++ build/*.o -o bin/output -lSDL2
 
 main.o: src/main.cpp
+	mkdir -p build
 	g++ -c src/main.cpp -lSDL2
 
 objects: src/objects/*.cpp src/objects/*.h
@@ -17,11 +20,9 @@ game: src/game/*.cpp src/game/*.h
 camera: src/camera/*.cpp src/camera/*.h
 	g++ -c src/camera/*.cpp
 
-
-
-
+# Additional Scripts
 clean:
-	rm *.o bin/output
+	rm build/*.o bin/output
 
 clear:
-	rm *.o
+	rm build/*.o
