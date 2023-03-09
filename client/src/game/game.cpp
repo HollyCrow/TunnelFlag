@@ -10,7 +10,7 @@ Game::Game(int ip, Vector2 map_dimensions){
     this->width = map_dimensions.x;
     this->height = map_dimensions.y;
     this->ip = ip;
-    this->local_player = Player(Vector2(0, 0), true);
+    this->local_player = Player(Vector2(0, 0));
 }
 
 void Game::update_positions(){
