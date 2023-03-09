@@ -2,7 +2,7 @@
 output: main.o objects utils game camera
 	mkdir -p bin
 	mv *.o ./build
-	g++ build/*.o -o bin/output -lSDL2
+	g++ build/*.o -o bin/output.rar -lSDL2
 
 main.o: src/main.cpp
 	mkdir -p build
