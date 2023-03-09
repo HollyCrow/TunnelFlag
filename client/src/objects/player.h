@@ -11,7 +11,7 @@
 #include "object.h"
 
 
-class Player: Object{
+class Player: public Object{
 public:
     Player();
     Player(Vector2, bool);
