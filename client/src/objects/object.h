@@ -14,6 +14,7 @@ class Object{
 public:
     Vector2 position = Vector2(0,0);
     Vector2 velocity = Vector2(0,0);
+    float max_velocity = 10;
     Vector2 scale;
     float rotation;
     Color color = Color(255, 255, 255, 255);
