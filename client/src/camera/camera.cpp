@@ -12,8 +12,8 @@
 
 using namespace std;
 
-extern SDL_Window *window;
-extern SDL_Renderer *renderer;
+extern SDL_Window* window;
+extern SDL_Renderer* renderer;
 
 extern Game game;
 extern int screen_width;
@@ -26,6 +26,7 @@ Camera::Camera() {
 
 
 void Camera::draw_game() {
+//    printf(" %f ", game.local_player.position.x);
 //    Vector2 modifier;
     modifier = Vector2(screen_width / 2, screen_height / 2);
     modifier.minus(game.local_player.position.get_multiple(this->scale));

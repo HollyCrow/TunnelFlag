@@ -23,6 +23,7 @@ public:
 private:
     Vector2 modifier;
     SDL_Rect p;
+
 };
 
 
