@@ -16,3 +16,4 @@ Game::Game(int ip, Vector2 map_dimensions){
 void Game::update_positions(){
     this->local_player.update_position();
 }
+

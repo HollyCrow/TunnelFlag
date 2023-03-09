@@ -26,6 +26,11 @@ void closer(){
     closing = true;
 }
 
+void mover(){
+    while (!closing) {
+        game.update_positions();
+    }
+}
 
 
 int main(){
@@ -35,11 +40,11 @@ int main(){
     SDL_RenderSetScale(renderer,1,1);
     SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
     /*  -----------------------------------------------------------------------------  */
-
-
-    std::thread thread_calc_object(&closer);
+    std::thread stopper_thread(&closer); // For testing only, until keyboard closure actually works;
+    std::thread calc_thread(&mover);
 
     Camera camera;
+    game.local_player.velocity.x = 0.1;
 
     while (!closing){
         camera.draw_game();
@@ -53,7 +58,8 @@ int main(){
 
     // -- END --
     /*  -----------------------------------------------------------------------------  */
-    thread_calc_object.join();
+    stopper_thread.join();
+    calc_thread.join();
 
     SDL_DestroyWindow(window);
     SDL_Quit();

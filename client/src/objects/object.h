@@ -15,7 +15,7 @@ public:
     Vector2 position = Vector2(0,0);
     Vector2 velocity = Vector2(0,0);
     float max_velocity = 10;
-    Vector2 scale;
+    Vector2 scale  = Vector2(100,100);
     float rotation;
     Color color = Color(255, 255, 255, 255);
     bool movable;
