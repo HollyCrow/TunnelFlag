@@ -17,6 +17,10 @@ public:
 
     void add(Vector2 addition);
 
+    void minus(double x, double y);
+
+    void minus(Vector2 addition);
+
     Vector2 get_minus(double x, double y);
 
     Vector2 get_minus(Vector2 addition);

@@ -10,6 +10,7 @@
 class Camera{
 public:
     float scale = 2;
+    bool close = false;
 
     Camera();
 

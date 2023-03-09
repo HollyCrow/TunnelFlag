@@ -26,6 +26,17 @@ void Vector2::add(Vector2 addition){
     this->y += addition.y;
 };
 
+void Vector2::minus(double x, double y){
+    this->x -= x;
+    this->y -= y;
+}
+
+
+void Vector2::minus(Vector2 addition){
+    this->x -= addition.x;
+    this->y -= addition.y;
+};
+
 
 Vector2 Vector2::get_minus(double x, double y){
     return Vector2(this->x-x, this->y-y);
@@ -50,5 +61,5 @@ double Vector2::distance(Vector2 addition){
 }
 
 Vector2 Vector2::get_multiple(float scale) {
-    return Vector2(this->x*scale, this->y*scale);
+    return Vector2(x*scale, y*scale);
 }
