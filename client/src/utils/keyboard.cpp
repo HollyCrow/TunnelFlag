@@ -24,6 +24,7 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
             }
             if (SDL_KEYDOWN == event.type){
                 //printf("key is down");
+                if (SDLK_ESCAPE == event.key.keysym.sym){ exit(0); }
                 if (SDLK_a == event.key.keysym.sym){printf(" A pressed \n");}
                 if (SDLK_s == event.key.keysym.sym){printf(" S pressed \n");}
                 if (SDLK_d == event.key.keysym.sym){printf(" D pressed \n");}
