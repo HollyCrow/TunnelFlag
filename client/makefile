@@ -1,8 +1,5 @@
-
-
-
 output: main.o objects utils game
-	g++ main.o vector2.o -o bin/output -lSDL2
+	g++ *.o -o bin/output -lSDL2
 
 main.o: src/main.cpp
 	g++ -c src/main.cpp -lSDL2
