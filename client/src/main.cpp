@@ -47,8 +47,11 @@ int main(){
 
 
     printf("\n...\n");
-    SDL_Delay(1000);
+    SDL_Delay(10000);
 
+
+
+    // -- END --
     camera.close = true;
     render_thread_object.join();
     SDL_DestroyWindow(window);
