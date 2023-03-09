@@ -34,7 +34,7 @@ void Camera::draw_game() {
     p.y = game.local_player.position.y + modifier.y - game.local_player.scale.y;
     p.w = game.local_player.scale.x;
     p.h = game.local_player.scale.y;
-    SDL_RenderFillRect(p);
+    SDL_RenderFillRect(renderer, &p);
 }
 
 
