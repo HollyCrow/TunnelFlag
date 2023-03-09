@@ -1,4 +1,4 @@
-output: main.o objects utils game
+output: main.o objects utils game camera
 	g++ *.o -o bin/output -lSDL2
 
 main.o: src/main.cpp
@@ -12,6 +12,11 @@ utils: src/utils/*.cpp src/utils/*.h
 
 game: src/game/*.cpp src/game/*.h
 	g++ -c src/game/*.cpp
+
+camera: src/camera/*.cpp src/camera/*.h
+	g++ -c src/camera/*.cpp
+
+
 
 
 clean:
