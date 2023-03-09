@@ -6,6 +6,8 @@
 #define TUNNELFLAG_CAMERA_H
 #include <SDL2/SDL.h>
 
+#include "../utils/vector2.h"
+
 
 class Camera{
 public:
@@ -18,7 +20,9 @@ public:
 
     void draw_game();
 
-
+private:
+    Vector2 modifier;
+    SDL_Rect p;
 };
 
 

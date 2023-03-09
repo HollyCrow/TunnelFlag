@@ -16,10 +16,10 @@ int screen_height = 960;
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 Game game(0, Vector2(1, 1));
-//std::thread render_thread_object;
-
+std::thread render_thread_object;
 void quit(){
-//    std::terminate(render_thread_object);
+//    camera.close = true;
+//    render_thread_object.join();
 
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -42,12 +42,17 @@ int main(){
     game.local_player.set_position(Vector2(100, 100));
     game.local_player.scale = Vector2(100, 100);
     Camera camera;
-    std::thread render_thread_object(&render_thread, &camera);
-//    std::terminate(render_thread_object);
-    SDL_Delay(5000);
-    camera.close = true;
-    SDL_Delay(5000);
 
+    std::thread render_thread_object(&render_thread, &camera);
+
+
+    printf("\n...\n");
+    SDL_Delay(1000);
+
+    camera.close = true;
+    render_thread_object.join();
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 
     return 0;
 }
