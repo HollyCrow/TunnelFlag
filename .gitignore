@@ -1,2 +1,3 @@
 *.o
 client/bin/output
+.vscode/c_cpp_properties.json
