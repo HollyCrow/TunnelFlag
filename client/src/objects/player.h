@@ -14,7 +14,7 @@
 class Player: public Object{
 public:
     Player();
-    Player(Vector2, bool);
+    Player(Vector2);
 
     void set_walk_speed(float);
     float get_walk_speed();
