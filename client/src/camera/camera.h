@@ -4,5 +4,20 @@
 
 #ifndef TUNNELFLAG_CAMERA_H
 #define TUNNELFLAG_CAMERA_H
+#include <SDL2/SDL.h>
+
+
+class Camera{
+public:
+    float zoom = 1;
+
+
+    Camera();
+
+    void rescale_window(int, int);
+
+
+};
+
 
 #endif //TUNNELFLAG_CAMERA_H

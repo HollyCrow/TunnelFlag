@@ -6,6 +6,7 @@
 
 #include "game/game.h"
 #include "utils/keyboard.h"
+#include "camera/camera.h"
 
 using namespace std;
 
