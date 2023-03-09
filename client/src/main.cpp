@@ -17,18 +17,13 @@ SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 Game game(0, Vector2(1, 1));
 std::thread render_thread_object;
-void quit(){
-//    camera.close = true;
-//    render_thread_object.join();
 
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
+bool closing = false;
+float scale = 1;
 
-void render_thread(Camera *camera) {
-    while (!camera->close) {
-        camera->draw_game();
-    }
+void closer(){
+    SDL_Delay(1000);
+    closing = true;
 }
 
 
@@ -39,21 +34,27 @@ int main(){
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer,1,1);
     SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
-    game.local_player.set_position(Vector2(100, 100));
-    game.local_player.scale = Vector2(100, 100);
+    /*  -----------------------------------------------------------------------------  */
+
+
+    std::thread thread_calc_object(&closer);
+
     Camera camera;
 
-    std::thread render_thread_object(&render_thread, &camera);
+    while (!closing){
+        camera.draw_game();
+    }
 
 
-    printf("\n...\n");
-    SDL_Delay(10000);
+    game.local_player.set_position(Vector2(100, 100));
+    game.local_player.scale = Vector2(100, 100);
 
 
 
     // -- END --
-    camera.close = true;
-    render_thread_object.join();
+    /*  -----------------------------------------------------------------------------  */
+    thread_calc_object.join();
+
     SDL_DestroyWindow(window);
     SDL_Quit();
 
