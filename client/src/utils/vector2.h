@@ -17,9 +17,16 @@ public:
 
     void add(Vector2 addition);
 
+    Vector2 get_minus(double x, double y);
+
+    Vector2 get_minus(Vector2 addition);
+
+
     double distance(double x, double y);
 
     double distance(Vector2 addition);
+
+    Vector2 get_multiple(float);
 };
 
 
