@@ -18,6 +18,7 @@ extern SDL_Renderer *renderer;
 extern Game game;
 extern int screen_width;
 extern int screen_height;
+extern SDL_Texture* background_texture;
 
 
 Camera::Camera() {
@@ -41,6 +42,15 @@ void Camera::draw_game() {
     p.w = int(game.local_player.scale.x);
     p.h = int(game.local_player.scale.y);
     SDL_RenderFillRect(renderer, &p);
+
+    p.x = 0;
+    p.y = 0;
+    p.w = 1920;
+    p.h = 1080;
+    SDL_RenderCopy( renderer, background_texture, NULL, &p );
+
+
+
     SDL_RenderPresent(renderer);
 
 
