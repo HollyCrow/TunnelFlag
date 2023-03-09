@@ -9,12 +9,13 @@
 
 class Camera{
 public:
-    float zoom = 1;
-
+    float scale = 1;
 
     Camera();
 
     void rescale_window(int, int);
+
+    void draw_game();
 
 
 };
