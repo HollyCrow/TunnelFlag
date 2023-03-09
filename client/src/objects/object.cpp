@@ -6,7 +6,10 @@
 #include "../utils/vector2.h"
 #include "../utils/color.h"
 
-
+Object::Object() {
+    this->position = Vector2(0, 0);
+    this->movable = false;
+}
 Object::Object(Vector2 start_position, bool movable) {
     this->position = start_position;
     this->movable = movable;

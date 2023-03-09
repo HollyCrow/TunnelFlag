@@ -19,6 +19,7 @@ public:
     Color color = Color(255, 255, 255, 255);
     bool movable;
 
+    Object();
     Object(Vector2, bool);
 
 
