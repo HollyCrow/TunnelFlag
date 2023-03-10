@@ -35,7 +35,12 @@ public:
     double distance(Vector2 addition);
 
     Vector2 get_multiple(float);
+
+    static Vector2 random_vector2(float);
 };
+
+
+
 
 
 #endif //TUNNELFLAG_VECTOR2_H

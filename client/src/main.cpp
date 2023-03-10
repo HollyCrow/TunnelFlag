@@ -19,11 +19,14 @@ Game game(0, Vector2(1, 1));
 std::thread render_thread_object;
 //SDL_Texture background = NULL;
 SDL_Texture *background_texture;
-SDL_Event quit;
+SDL_Event quit; // For detecting if window is closed;
 
 bool closing = false;
 float scale = 1;
+
+
 Keyboard keyboard;
+
 
 void closer(){
     SDL_Delay(4000);
@@ -54,18 +57,16 @@ int main(){
 
     /*  -----------------------------------------------------------------------------  */
     game.local_player.velocity.x = 1;
-    game.local_player.set_position(Vector2(100, 100));
     game.local_player.scale = Vector2(100, 100);
     std::thread calc_thread(&mover);
-
-
     Camera camera;
-    //game.local_player.velocity.x = 0.1;
+
+
 
 
     while (!closing){
         camera.draw_game();
-        keyboard.listen();
+        keyboard.listen(); //TODO: possibly move keyboard listener to different thread?
     }
 
 

@@ -73,3 +73,7 @@ double Vector2::distance(Vector2 addition){
 Vector2 Vector2::get_multiple(float scale) {
     return Vector2(x*scale, y*scale);
 }
+
+Vector2 Vector2::random_vector2(float multiplier){
+    return Vector2(rand()*multiplier, rand()*multiplier);
+}
