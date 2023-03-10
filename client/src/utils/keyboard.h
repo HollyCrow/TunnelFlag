@@ -14,6 +14,7 @@ class Keyboard{
 public:
     const Uint8 *state = SDL_GetKeyboardState(NULL);
 
+    float scale = 1;
     Vector2 player_move = Vector2(0, 0);
 
 

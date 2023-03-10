@@ -12,7 +12,7 @@
 
 class Camera{
 public:
-    float scale = 1;
+    float scale = 2;
     bool close = false;
     SDL_Rect rect;
 
