@@ -38,11 +38,7 @@ void Camera::draw_player(Vector2 offset) {
     SDL_RenderFillRect(renderer, &rect);
 }
 
-
-void Camera::draw_game() {
-    Vector2 offset(-game.local_player.position.x, -game.local_player.position.y);
-    offset.add(screen_width/2, screen_height/2);
-    offset.minus(game.local_player.scale.x/2, game.local_player.scale.y/2);
+void Camera::draw_background(Vector2 offset) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer,100, 100, 100, 100);
@@ -51,8 +47,16 @@ void Camera::draw_game() {
     rect.w = 100;
     rect.h = 100;
     SDL_RenderFillRect(renderer, &rect);
+}
 
 
+void Camera::draw_game() {
+    Vector2 offset(-game.local_player.position.x, -game.local_player.position.y);
+    offset.add(screen_width/2, screen_height/2);
+    offset.minus(game.local_player.scale.x/2, game.local_player.scale.y/2);
+
+
+    draw_background(offset);
     draw_player(offset);
 
 
