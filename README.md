@@ -3,7 +3,7 @@
 
 ### Build instructions:
 ```bash
-cd client
-bash dev.sh
+make
+./build/client.rar
 ```
 #### You will also need sdl2 c++ development libraries installed (varies per OS)
