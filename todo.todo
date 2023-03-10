@@ -19,6 +19,7 @@ client
 
 
 server:
+ - [ ] Actually start the server (Im looking at you Goggy)
  - [ ] Packet list
  - [ ] Player movement
  - [ ] Full sync
