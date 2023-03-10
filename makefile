@@ -1,45 +1,74 @@
 # Build
 CLIENTBUILDDIR=build/client
 
+# Sources
+MAIN_SRC=client/src/main.cpp
+OBJECT_SRC=client/src/objects/object.cpp
+LOCALPLAYER_SRC=client/src/objects/localplayer.cpp
+PLAYER_SRC=client/src/objects/player.cpp
+KEYBOARD_SRC=client/src/utils/keyboard.cpp
+COLOR_SRC=client/src/utils/color.cpp
+VECTOR2_SRC=client/src/utils/vector2.cpp
+GAME_SRC=client/src/game/game.cpp
+CAMERA_SRC=client/src/camera/camera.cpp
 
-all: main.o objects utils game camera
-	g++ build/client/*.o -o build/client.rar -lSDL2
+# Object files
+MAIN_OBJ=$(CLIENTBUILDDIR)/main.o
+OBJECT_OBJ=$(CLIENTBUILDDIR)/object.o
+LOCALPLAYER_OBJ=$(CLIENTBUILDDIR)/localplayer.o
+PLAYER_OBJ=$(CLIENTBUILDDIR)/player.o
+KEYBOARD_OBJ=$(CLIENTBUILDDIR)/keyboard.o
+COLOR_OBJ=$(CLIENTBUILDDIR)/color.o
+VECTOR2_OBJ=$(CLIENTBUILDDIR)/vector2.o
+GAME_OBJ=$(CLIENTBUILDDIR)/game.o
+CAMERA_OBJ=$(CLIENTBUILDDIR)/camera.o
 
+# Dependencies
+MAIN_DEPS=$(MAIN_SRC)
+OBJECT_DEPS=$(OBJECT_SRC) client/src/objects/object.h
+LOCALPLAYER_DEPS=$(LOCALPLAYER_SRC) client/src/objects/localplayer.h
+PLAYER_DEPS=$(PLAYER_SRC) client/src/objects/player.h
+KEYBOARD_DEPS=$(KEYBOARD_SRC) client/src/utils/keyboard.h
+COLOR_DEPS=$(COLOR_SRC) client/src/utils/color.h
+VECTOR2_DEPS=$(VECTOR2_SRC) client/src/utils/vector2.h
+GAME_DEPS=$(GAME_SRC) client/src/game/game.h
+CAMERA_DEPS=$(CAMERA_SRC) client/src/camera/camera.h
 
-main.o: client/src/main.cpp
-	mkdir -p build
-	mkdir -p build/client
-	g++ -c client/src/main.cpp -lSDL2 -o $(CLIENTBUILDDIR)/main.o
+all: $(CLIENTBUILDDIR)/client.rar
 
-objects: object localplayer player
+$(CLIENTBUILDDIR)/client.rar: $(MAIN_OBJ) $(OBJECT_OBJ) $(LOCALPLAYER_OBJ) $(PLAYER_OBJ) $(KEYBOARD_OBJ) $(COLOR_OBJ) $(VECTOR2_OBJ) $(GAME_OBJ) $(CAMERA_OBJ)
+	g++ $^ -o $@ -lSDL2
 
-object: client/src/objects/object.cpp client/src/objects/object.cpp
-	g++ -c client/src/objects/object.cpp -o $(CLIENTBUILDDIR)/object.o
-localplayer: client/src/objects/localplayer.cpp client/src/objects/localplayer.h
-	g++ -c client/src/objects/localplayer.cpp -o $(CLIENTBUILDDIR)/localplayer.o
-player: client/src/objects/player.cpp client/src/objects/player.h
-	g++ -c client/src/objects/player.cpp -o $(CLIENTBUILDDIR)/player.o
+$(MAIN_OBJ): $(MAIN_DEPS)
+	mkdir -p $(CLIENTBUILDDIR)
+	g++ -c $(MAIN_SRC) -lSDL2 -o $(MAIN_OBJ)
 
+$(OBJECT_OBJ): $(OBJECT_DEPS)
+	g++ -c $(OBJECT_SRC) -o $(OBJECT_OBJ)
 
-utils: keyboard color vector2
+$(LOCALPLAYER_OBJ): $(LOCALPLAYER_DEPS)
+	g++ -c $(LOCALPLAYER_SRC) -o $(LOCALPLAYER_OBJ)
 
-keyboard: client/src/utils/keyboard.cpp client/src/utils/keyboard.h
-	g++ -c client/src/utils/keyboard.cpp -o $(CLIENTBUILDDIR)/keyboard.o
-color: client/src/utils/color.cpp client/src/utils/color.h
-	g++ -c client/src/utils/color.cpp -o $(CLIENTBUILDDIR)/color.o
-vector2: client/src/utils/vector2.cpp client/src/utils/vector2.h
-	g++ -c client/src/utils/vector2.cpp -o $(CLIENTBUILDDIR)/vector2.o
+$(PLAYER_OBJ): $(PLAYER_DEPS)
+	g++ -c $(PLAYER_SRC) -o $(PLAYER_OBJ)
 
+$(KEYBOARD_OBJ): $(KEYBOARD_DEPS)
+	g++ -c $(KEYBOARD_SRC) -o $(KEYBOARD_OBJ)
 
-game: client/src/game/game.cpp client/src/game/game.h
-	g++ -c client/src/game/game.cpp -o $(CLIENTBUILDDIR)/game.o
+$(COLOR_OBJ): $(COLOR_DEPS)
+	g++ -c $(COLOR_SRC) -o $(COLOR_OBJ)
 
-camera: client/src/camera/camera.cpp client/src/camera/camera.h
-	g++ -c client/src/camera/camera.cpp -o $(CLIENTBUILDDIR)/camera.o
+$(VECTOR2_OBJ): $(VECTOR2_DEPS)
+	g++ -c $(VECTOR2_SRC) -o $(VECTOR2_OBJ)
 
-# Additional Scripts
+$(GAME_OBJ): $(GAME_DEPS)
+	g++ -c $(GAME_SRC) -o $(GAME_OBJ)
+
+$(CAMERA_OBJ): $(CAMERA_DEPS)
+	g++ -c $(CAMERA_SRC) -o $(CAMERA_OBJ)
+
 clean:
-	rm client/build/*.o client/bin/output
+	rm -rf $(CLIENTBUILDDIR)
 
 clear:
-	rm client/build/*.o
+	rm -rf $(CLIENTBUILDDIR)/*.o
