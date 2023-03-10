@@ -13,15 +13,10 @@ Game::Game(int ip, Vector2 map_dimensions){
     this->height = map_dimensions.y;
     this->ip = ip;
     this->local_player.position = Vector2(0, 0);
-
-
-
-
     for (int p = 0; p < player_number; p++){
-        players[p].velocity = Vector2::random_vector2(0.000000001);
+        players[p].velocity = Vector2::random_vector2(1).get_multiple(players[p].get_walk_speed());
     }
 }
-
 
 
 void Game::update(){
@@ -30,6 +25,5 @@ void Game::update(){
     for (int p = 0; p < player_number; p++){
         players[p].update_position();
     }
-
 }
 
