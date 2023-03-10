@@ -25,6 +25,19 @@ Camera::Camera() {
 
 }
 
+void Camera::set_color(Color color) {
+    SDL_SetRenderDrawColor(renderer,color.r, color.g, color.b, color.a);
+}
+
+void Camera::draw_player(Vector2 offset) {
+    set_color(game.local_player.color);
+    rect.x = int(game.local_player.position.x + offset.x);
+    rect.y = int(game.local_player.position.y + offset.y);
+    rect.w = int(game.local_player.scale.x);
+    rect.h = int(game.local_player.scale.y);
+    SDL_RenderFillRect(renderer, &rect);
+}
+
 
 void Camera::draw_game() {
     Vector2 offset(-game.local_player.position.x, -game.local_player.position.y);
@@ -33,23 +46,14 @@ void Camera::draw_game() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer,100, 100, 100, 100);
-    SDL_Rect p; // Player rectangle, replace with texture for player sprite to not be rectangle
+    rect.x = 0+offset.x;
+    rect.y = 0+offset.y;
+    rect.w = 100;
+    rect.h = 100;
+    SDL_RenderFillRect(renderer, &rect);
 
 
-    p.x = 0+offset.x;
-    p.y = 0+offset.y;
-    p.w = 100;
-    p.h = 100;
-    SDL_RenderFillRect(renderer, &p);
-
-    SDL_SetRenderDrawColor(renderer,255, 255, 255, 255);
-//    Vector2 newpos = game.local_player.get_position().get_add(offset).get_minus(game.local_player.scale.x/2, game.local_player.scale.y/2);
-    p.x = int(game.local_player.position.x + offset.x);
-//    printf("%d\n", p.x);
-    p.y = int(game.local_player.position.y + offset.y);
-    p.w = int(game.local_player.scale.x);
-    p.h = int(game.local_player.scale.y);
-    SDL_RenderFillRect(renderer, &p);
+    draw_player(offset);
 
 
 //    SDL_RenderCopy( renderer, background_texture, NULL, &p );

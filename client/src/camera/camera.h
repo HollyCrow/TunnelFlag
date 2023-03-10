@@ -7,18 +7,26 @@
 #include <SDL2/SDL.h>
 
 #include "../utils/vector2.h"
+#include "../utils/color.h"
 
 
 class Camera{
 public:
     float scale = 1;
     bool close = false;
+    SDL_Rect rect;
+
 
     Camera();
 
     void rescale_window(int, int);
 
     void draw_game();
+    void set_color(Color);
+
+    void draw_background(Vector2);
+    void draw_player(Vector2);
+
 
 
 };
