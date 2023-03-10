@@ -34,9 +34,10 @@ VECTOR2_DEPS=$(VECTOR2_SRC) client/src/utils/vector2.h
 GAME_DEPS=$(GAME_SRC) client/src/game/game.h
 CAMERA_DEPS=$(CAMERA_SRC) client/src/camera/camera.h
 
-all: $(CLIENTBUILDDIR)/client.rar
+all: $(MAIN_OBJ) $(OBJECT_OBJ) $(LOCALPLAYER_OBJ) $(PLAYER_OBJ) $(KEYBOARD_OBJ) $(COLOR_OBJ) $(VECTOR2_OBJ) $(GAME_OBJ) $(CAMERA_OBJ)
+	g++ $(MAIN_OBJ) $(OBJECT_OBJ) $(LOCALPLAYER_OBJ) $(PLAYER_OBJ) $(KEYBOARD_OBJ) $(COLOR_OBJ) $(VECTOR2_OBJ) $(GAME_OBJ) $(CAMERA_OBJ) -o build/client.rar -lSDL2
 
-$(CLIENTBUILDDIR)/client.rar: $(MAIN_OBJ) $(OBJECT_OBJ) $(LOCALPLAYER_OBJ) $(PLAYER_OBJ) $(KEYBOARD_OBJ) $(COLOR_OBJ) $(VECTOR2_OBJ) $(GAME_OBJ) $(CAMERA_OBJ)
+$(CLIENTBUILDDIR)/client.rar:
 	g++ $^ -o $@ -lSDL2
 
 $(MAIN_OBJ): $(MAIN_DEPS)
@@ -68,7 +69,7 @@ $(CAMERA_OBJ): $(CAMERA_DEPS)
 	g++ -c $(CAMERA_SRC) -o $(CAMERA_OBJ)
 
 clean:
-	rm -rf $(CLIENTBUILDDIR)
+	rm -rf $(CLIENTBUILDDIR) build/client.rar
 
 clear:
 	rm -rf $(CLIENTBUILDDIR)/*.o

@@ -2,8 +2,10 @@
 client
  - [x] Camera system
  - [x] Player drawing
+ - [ ] Smart limit to camera zoom
  - [ ] Texture loading
  - [ ] Menu screen
+ - [ ] Map drawing
  - [ ] UDP client
  - [ ] Player physics
  - [ ] Map interaction
