@@ -30,17 +30,17 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
         closing = true;
     }
 
-    if (state[SDL_SCANCODE_RIGHT]) {
+    if (state[SDL_SCANCODE_D]) { //TODO: Make keybinding hotswap-able from code during runtime.
         this->player_move.x = 1;
-    }else if (state[SDL_SCANCODE_LEFT]) {
+    }else if (state[SDL_SCANCODE_A]) {
         this->player_move.x = -1;
     }else{
         this->player_move.x = 0;
     }
 
-    if (state[SDL_SCANCODE_UP]) {
+    if (state[SDL_SCANCODE_W]) {
         this->player_move.y = -1;
-    }else if (state[SDL_SCANCODE_DOWN]) {
+    }else if (state[SDL_SCANCODE_S]) {
         this->player_move.y = 1;
     }else{
         this->player_move.y = 0;
