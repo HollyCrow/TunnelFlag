@@ -11,8 +11,8 @@
 
 using namespace std;
 
-int screen_width = 1280;
-int screen_height = 960;
+int screen_width = 1920;
+int screen_height = 1080;
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
 Game game(0, Vector2(1, 1));
@@ -22,16 +22,12 @@ SDL_Texture *background_texture;
 SDL_Event event; // For detecting if window is closed;
 
 bool closing = false;
-float scale = 1;
+SDL_Scancode up = SDL_SCANCODE_D;
+
+Keybinds keys; //Keybind object, change to change keybinds of game.
+Keyboard keyboard; //TODO: Keyboard controller should be static
 
 
-Keyboard keyboard;
-
-
-void closer(){
-    SDL_Delay(4000);
-    closing = true;
-}
 
 void mover(){
     while (!closing) {
@@ -60,6 +56,9 @@ int main(){
     game.local_player.scale = Vector2(100, 100);
     std::thread calc_thread(&mover);
     Camera camera;
+
+
+    keys.player.up = SDL_SCANCODE_E;
 
 
 

@@ -19,7 +19,7 @@ extern bool closing;
 extern SDL_Event event;
 extern Game game;
 extern Camera camera;
-
+extern Keybinds keys;
 
 Keyboard::Keyboard() {
 
@@ -38,26 +38,18 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
             this->scale = this->scale*0.909;
         }
     }
-
-    if (state[SDL_SCANCODE_D]) { //TODO: Make keybinding hotswap-able from code during runtime.
+    if (state[keys.player.right]) {
         this->player_move.x = 1;
-    }else if (state[SDL_SCANCODE_A]) {
+    }else if (state[keys.player.left]) {
         this->player_move.x = -1;
     }else{
         this->player_move.x = 0;
     }
-
-    if (state[SDL_SCANCODE_W]) {
+    if (state[keys.player.up]) {
         this->player_move.y = -1;
-    }else if (state[SDL_SCANCODE_S]) {
+    }else if (state[keys.player.down]) {
         this->player_move.y = 1;
     }else{
         this->player_move.y = 0;
-    }
-
-    if (state[SDL_SCANCODE_UP]) {
-        this->scale -= 0.001;
-    }else if (state[SDL_SCANCODE_DOWN]) {
-        this->scale += 0.001;
     }
 }

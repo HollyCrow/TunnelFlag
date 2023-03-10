@@ -4,6 +4,7 @@
 
 #include "vector2.h"
 #include <math.h>
+#include <ctime>
 
 
 Vector2::Vector2(){
@@ -75,5 +76,5 @@ Vector2 Vector2::get_multiple(float scale) {
 }
 
 Vector2 Vector2::random_vector2(float multiplier){
-    return Vector2(rand()*multiplier, rand()*multiplier);
+    return Vector2(((double)rand()) / RAND_MAX, ((double)rand()) / RAND_MAX);
 }

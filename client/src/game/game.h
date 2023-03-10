@@ -5,9 +5,22 @@
 #ifndef TUNNELFLAG_GAME_H
 #define TUNNELFLAG_GAME_H
 
+#include <SDL2/SDL.h>
+
 #include "../utils/vector2.h"
 #include "../objects/player.h"
 
+
+struct playerKeybinds{
+    SDL_Scancode up = SDL_SCANCODE_W;
+    SDL_Scancode down = SDL_SCANCODE_S;
+    SDL_Scancode left = SDL_SCANCODE_A;
+    SDL_Scancode right = SDL_SCANCODE_D;
+};
+
+struct Keybinds{
+    playerKeybinds player;
+};
 
 class Game{
 public:
