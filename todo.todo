@@ -1,0 +1,28 @@
+# Many of these are just spit-balling and may not make it into the finally game
+client
+ - [x] Camera system
+ - [x] Player drawing
+ - [ ] Texture loading
+ - [ ] Menu screen
+ - [ ] UDP client
+ - [ ] Player physics
+ - [ ] Map interaction
+ - [ ] Marching squares map
+ - [ ] Make proper textures
+ - [ ] Teams
+ - [ ] Bases
+ - [ ] Sound system
+ - [ ] Sound design
+ - [ ] Shop with team upgrades etc
+ - [ ] Cave generation
+ - [ ] Music
+
+
+server:
+ - [ ] Packet list
+ - [ ] Player movement
+ - [ ] Full sync
+ - [ ] Map changes
+ - [ ] Heartbeat
+ - [ ] Authentication
+ - [ ] Chat
