@@ -13,14 +13,20 @@ Game::Game(int ip, Vector2 map_dimensions){
     this->height = map_dimensions.y;
     this->ip = ip;
     this->local_player = Player(Vector2(0, 0));
+
+//    for (int p = 0; p < player_number; p++){
+//        players[p].position.x = -10;
+//        players[p].position.y = -10;
+//        players[p].scale.x = 10;
+//        players[p].scale.y = 10;
+//    }
 }
 
 
 
 void Game::update(){
     this->local_player.velocity = keyboard.player_move.get_multiple(local_player.get_walk_speed());
-
-
     this->local_player.update_position();
+
 }
 

@@ -15,8 +15,9 @@ public:
     int width;
     int height;
     short map[128][128];
+    int player_number = 4;
     Player local_player;
-    Player players[0]; // Redundant until multiplayer is implemented, so left at 0.
+    Player players[4];
 
     Game(int, Vector2);
 
