@@ -7,13 +7,21 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include "vector2.h"
 
 
 class Keyboard{
 public:
-    SDL_Event event;
+    const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+    Vector2 player_move = Vector2(0, 0);
+
+
+
+
+    Keyboard();
+    Uint8 *keystate;
     int number;
-//    Keyboard(bool);
     void listen();
 };
 

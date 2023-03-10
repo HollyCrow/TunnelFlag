@@ -19,19 +19,21 @@ Game game(0, Vector2(1, 1));
 std::thread render_thread_object;
 //SDL_Texture background = NULL;
 SDL_Texture *background_texture;
-
+SDL_Event quit;
 
 bool closing = false;
 float scale = 1;
+Keyboard keyboard;
 
 void closer(){
-    SDL_Delay(1000);
+    SDL_Delay(4000);
     closing = true;
 }
 
 void mover(){
     while (!closing) {
-        game.update_positions();
+        SDL_Delay(10);
+        game.update();
     }
 }
 
@@ -48,28 +50,31 @@ int main(){
     background_texture = SDL_CreateTextureFromSurface( renderer, background_image );
 
 
-
-
     /*  -----------------------------------------------------------------------------  */
-    std::thread stopper_thread(&closer); // For testing only, until keyboard closure actually works;
+    game.local_player.velocity.x = 1;
+    game.local_player.set_position(Vector2(100, 100));
+    game.local_player.scale = Vector2(100, 100);
+//    std::thread stopper_thread(&closer); // For testing only, until keyboard closure actually works;
     std::thread calc_thread(&mover);
+
 
     Camera camera;
     //game.local_player.velocity.x = 0.1;
 
+
     while (!closing){
         camera.draw_game();
+        keyboard.listen();
     }
 
 
-    game.local_player.set_position(Vector2(100, 100));
-    game.local_player.scale = Vector2(100, 100);
+
 
 
 
     // -- END --
     /*  -----------------------------------------------------------------------------  */
-    stopper_thread.join();
+//    stopper_thread.join();
     calc_thread.join();
 
     SDL_DestroyWindow(window);

@@ -20,7 +20,7 @@ public:
 
     Game(int, Vector2);
 
-    void update_positions();
+    void update();
 
 };
 

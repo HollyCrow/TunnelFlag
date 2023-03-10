@@ -5,33 +5,44 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "vector2.h"
 
+
+#include "../game/game.h"
 //Keyboard::Keyboard(bool isit) {
 //    this->number = 2;
 //    std::cout <<(isit);
 //}
 
+extern bool closing;
+extern SDL_Event quit;
+extern Game game;
 
 
+Keyboard::Keyboard() {
 
+}
 
 
 void Keyboard::listen() { //TODO: System for single click detection and for held detection (open inventory vs WASD)
-    while (true) {
-        if (SDL_PollEvent(&event)) {
-            if (SDL_QUIT == event.type){
-                break;
-            }
-            if (SDL_KEYDOWN == event.type){
-                //printf("key is down");
-                if (SDLK_ESCAPE == event.key.keysym.sym){ exit(0); }
-                if (SDLK_a == event.key.keysym.sym){printf(" A pressed \n");}
-                if (SDLK_s == event.key.keysym.sym){printf(" S pressed \n");}
-                if (SDLK_d == event.key.keysym.sym){printf(" D pressed \n");}
-                if (SDLK_w == event.key.keysym.sym){printf(" W pressed \n");}
-            }else if (SDL_KEYUP == event.type){
-                printf("key is up");
-            }
-        }
+    SDL_PollEvent(&quit);
+    if (quit.type == SDL_QUIT) {  // Closes the window, if user stops running
+        closing = true;
+    }
+
+    if (state[SDL_SCANCODE_RIGHT]) {
+        this->player_move.x = 1;
+    }else if (state[SDL_SCANCODE_LEFT]) {
+        this->player_move.x = -1;
+    }else{
+        this->player_move.x = 0;
+    }
+
+    if (state[SDL_SCANCODE_UP]) {
+        this->player_move.y = -1;
+    }else if (state[SDL_SCANCODE_DOWN]) {
+        this->player_move.y = 1;
+    }else{
+        this->player_move.y = 0;
     }
 }

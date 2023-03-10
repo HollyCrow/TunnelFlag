@@ -23,7 +23,7 @@ public:
 
 
 private:
-    float walk_speed = 1;
+    float walk_speed = 2;
 
 
 };
