@@ -1,2 +1,0 @@
-make
-bin/output.rar
