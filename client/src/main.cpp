@@ -44,17 +44,18 @@ int main(){
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer,1,1);
     SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
     /*  -----------------------------------------------------------------------------  */
-    SDL_Surface* background_image = SDL_LoadBMP("assets/background.png");
-
-    background_texture = SDL_CreateTextureFromSurface( renderer, background_image );
-
+    SDL_Surface* surface = SDL_LoadBMP("assets/background.png");
+    background_texture = SDL_CreateTextureFromSurface( renderer, surface );
+    SDL_FreeSurface(surface);
 
     /*  -----------------------------------------------------------------------------  */
     game.local_player.velocity.x = 1;
     game.local_player.set_position(Vector2(100, 100));
     game.local_player.scale = Vector2(100, 100);
-//    std::thread stopper_thread(&closer); // For testing only, until keyboard closure actually works;
     std::thread calc_thread(&mover);
 
 
@@ -72,10 +73,11 @@ int main(){
 
 
 
-    // -- END --
+    // -- END -- Close resources
     /*  -----------------------------------------------------------------------------  */
-//    stopper_thread.join();
     calc_thread.join();
+
+    SDL_DestroyTexture(background_texture);
 
     SDL_DestroyWindow(window);
     SDL_Quit();
