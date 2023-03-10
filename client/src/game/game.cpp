@@ -8,6 +8,17 @@
 
 extern Keyboard keyboard;
 
+
+Game::Game(){
+    this->width = 0;
+    this->height = 0;
+    this->ip = 0;
+    this->local_player.position = Vector2(0, 0);
+    for (int p = 0; p < player_number; p++){
+        players[p].velocity = Vector2::random_vector2(1).get_multiple(players[p].get_walk_speed());
+    }
+}
+
 Game::Game(int ip, Vector2 map_dimensions){
     this->width = map_dimensions.x;
     this->height = map_dimensions.y;

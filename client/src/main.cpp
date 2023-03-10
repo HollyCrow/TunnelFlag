@@ -13,53 +13,55 @@ using namespace std;
 
 int screen_width = 1920;
 int screen_height = 1080;
-SDL_Window* window = nullptr;
+SDL_Window* window = nullptr;       //SDL window and renderer objects
 SDL_Renderer* renderer = nullptr;
-Game game(0, Vector2(1, 1));
-std::thread render_thread_object;
-//SDL_Texture background = NULL;
+
+Game game;                          //Game object, default initialise, does nothing until activated.
+Camera camera;                      //Camera object, also does nothing until camera.draw_game() run
+
+
+
 SDL_Texture *background_texture;
-SDL_Event event; // For detecting if window is closed;
-
-bool closing = false;
-SDL_Scancode up = SDL_SCANCODE_D;
-
-Keybinds keys; //Keybind object, change to change keybinds of game.
-Keyboard keyboard; //TODO: Keyboard controller should be static
+/*
+ * Place other SDL texture objects here
+ *
+ *
+ */
 
 
+Keybinds keys;          // Keybind object, change to change keybinds of game.
+SDL_Event event;        // Key events, for single press detection.
+Keyboard keyboard;      // Key object for prolonged detection and SDL_Event parsing
 
-void mover(){
-    while (!closing) {
-        SDL_Delay(10);
-        game.update();
-    }
-}
+bool closing = false;   // Variable to change to close game, all threads should check this variable to close.
+
+void mover(){while (!closing) {SDL_Delay(10); game.update();}} //Threads
+void keypress_thread(){while (!closing)keyboard.listen();}
 
 
 int main(){
+    /*  -------------------- Window and game initialisation -------------------------  */
     printf("\n - Tunnel Flag - \n\n");
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer,1,1);
     SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
-    /*  -----------------------------------------------------------------------------  */
+
+    /*  --------------------------- Texture loading --------------------------------  */
     SDL_Surface* surface = SDL_LoadBMP("assets/background.png");
     background_texture = SDL_CreateTextureFromSurface( renderer, surface );
     SDL_FreeSurface(surface);
+
+    /*  ------------------------------ Main menu -----------------------------------  */
+
+
+
 
     /*  -----------------------------------------------------------------------------  */
     game.local_player.velocity.x = 1;
     game.local_player.scale = Vector2(100, 100);
     std::thread calc_thread(&mover);
-    Camera camera;
-
-
-    keys.player.up = SDL_SCANCODE_E;
-
+    std::thread keys_thread(&keypress_thread);
 
 
 
@@ -77,6 +79,7 @@ int main(){
     // -- END -- Close resources
     /*  -----------------------------------------------------------------------------  */
     calc_thread.join();
+    keys_thread.join();
 
     SDL_DestroyTexture(background_texture);
 
