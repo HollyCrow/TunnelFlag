@@ -19,7 +19,7 @@ Game game(0, Vector2(1, 1));
 std::thread render_thread_object;
 //SDL_Texture background = NULL;
 SDL_Texture *background_texture;
-SDL_Event quit; // For detecting if window is closed;
+SDL_Event event; // For detecting if window is closed;
 
 bool closing = false;
 float scale = 1;
@@ -67,6 +67,7 @@ int main(){
     while (!closing){
         camera.draw_game();
         keyboard.listen(); //TODO: possibly move keyboard listener to different thread?
+        camera.scale = keyboard.scale;
     }
 
 
