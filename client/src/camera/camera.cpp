@@ -29,7 +29,19 @@ void Camera::set_color(Color color) {
     SDL_SetRenderDrawColor(renderer,color.r, color.g, color.b, color.a);
 }
 
-void Camera::draw_player(Vector2 offset) {
+void Camera::draw_players(Vector2 offset) {
+    SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
+    for (int p = 0; p < game.player_number; p++){
+        set_color(game.players[p].color);
+        rect.x = int(game.players[p].position.x + offset.x);
+        rect.y = int(game.players[p].position.y + offset.y);
+        rect.w = int(game.players[p].scale.x);
+        rect.h = int(game.players[p].scale.y);
+        SDL_RenderFillRect(renderer, &rect);
+    }
+}
+
+void Camera::draw_local_player(Vector2 offset) {
     set_color(game.local_player.color);
     rect.x = int(game.local_player.position.x + offset.x);
     rect.y = int(game.local_player.position.y + offset.y);
@@ -39,14 +51,13 @@ void Camera::draw_player(Vector2 offset) {
 }
 
 void Camera::draw_background(Vector2 offset) {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer,100, 100, 100, 100);
     rect.x = 0+offset.x;
     rect.y = 0+offset.y;
-    rect.w = 100;
-    rect.h = 100;
+    rect.w = 1920;
+    rect.h = 1080;
     SDL_RenderFillRect(renderer, &rect);
+//    SDL_RenderCopy(renderer, background_texture, NULL, &rect);
 }
 
 
@@ -54,10 +65,13 @@ void Camera::draw_game() {
     Vector2 offset(-game.local_player.position.x, -game.local_player.position.y);
     offset.add(screen_width/2, screen_height/2);
     offset.minus(game.local_player.scale.x/2, game.local_player.scale.y/2);
+    SDL_SetRenderDrawColor(renderer,0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
 
     draw_background(offset);
-    draw_player(offset);
+    draw_players(offset);
+    draw_local_player(offset);
 
 
 //    SDL_RenderCopy( renderer, background_texture, NULL, &p );

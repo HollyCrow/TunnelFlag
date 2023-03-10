@@ -25,7 +25,8 @@ public:
     void set_color(Color);
 
     void draw_background(Vector2);
-    void draw_player(Vector2);
+    void draw_players(Vector2);
+    void draw_local_player(Vector2);
 
 
 
