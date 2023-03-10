@@ -21,7 +21,7 @@ extern Game game;
 extern Camera camera;
 extern Keybinds keys;
 
-Keyboard::Keyboard() {
+Keyboard::Keyboard() {  //TODO: Keyboard controller should be static
 
 }
 
@@ -31,13 +31,15 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
     if (event.type == SDL_QUIT) {  // Closes the window, if user stops running
         closing = true;
     }else if (event.type == SDL_MOUSEWHEEL){
-        if(event.wheel.y > 0){ // scroll up
+        if(event.wheel.y > 0){
             this->scale = this->scale*1.1;
         }
-        else if(event.wheel.y < 0){// scroll down
+        else if(event.wheel.y < 0){
             this->scale = this->scale*0.909;
         }
     }
+
+
     if (state[keys.player.right]) {
         this->player_move.x = 1;
     }else if (state[keys.player.left]) {

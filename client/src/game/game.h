@@ -33,6 +33,7 @@ public:
     Player players[4];
 
     Game(int, Vector2);
+    Game();
 
     void update();
 
