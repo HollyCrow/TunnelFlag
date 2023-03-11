@@ -11,10 +11,13 @@
 
 Player::Player() {
     this->position = Vector2(0, 0);
-    this->movable = false;
+    this->scale = Vector2(100, 100);
+    this->movable = true;
 }
 Player::Player(Vector2 start_position) {
     this->position = start_position;
+    this->scale = Vector2(100, 100);
+
     this->movable = true;
 }
 

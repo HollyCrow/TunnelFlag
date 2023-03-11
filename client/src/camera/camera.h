@@ -4,15 +4,19 @@
 
 #ifndef TUNNELFLAG_CAMERA_H
 #define TUNNELFLAG_CAMERA_H
+
 #include <SDL2/SDL.h>
 
 #include "../utils/vector2.h"
+#include "../utils/color.h"
 
 
-class Camera{
+class Camera {
 public:
     float scale = 2;
     bool close = false;
+    SDL_Rect rect{};
+
 
     Camera();
 
@@ -20,9 +24,17 @@ public:
 
     void draw_game();
 
-private:
-    Vector2 modifier;
-    SDL_Rect p;
+    static void set_color(Color);
+
+    void draw_background(Vector2);
+
+    void draw_players(Vector2);
+
+    void draw_local_player(Vector2);
+
+    void draw_map(Vector2);
+
+
 };
 
 
