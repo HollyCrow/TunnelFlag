@@ -5,10 +5,10 @@ client
  - [ ] Smart limit to camera zoom
  - [ ] Texture loading
  - [ ] Menu screen
- - [ ] Map drawing
+ - [-] Map drawing
  - [ ] UDP client
- - [ ] Player physics
- - [ ] Map interaction
+ - [ ] Player physicsdsds
+ - [-] Map interaction
  - [ ] Marching squares map
  - [ ] Make proper textures
  - [ ] Teams

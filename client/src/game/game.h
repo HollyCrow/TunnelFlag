@@ -20,6 +20,7 @@ public:
     int height;
     short map[128][128];
     int player_number = 4;
+    const int scale = 100;
     Player local_player;
     Player players[4];
 
@@ -28,6 +29,8 @@ public:
     Game();
 
     void update();
+
+    void click_event();
 
 };
 
