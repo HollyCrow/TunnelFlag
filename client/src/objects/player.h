@@ -6,10 +6,7 @@
 #define TUNNELFLAG_PLAYER_H
 
 #include "../utils/vector2.h"
-#include "../utils/color.h"
-
 #include "object.h"
-
 
 class Player: public Object{
 public:
@@ -21,9 +18,8 @@ public:
 
 
 
-
 private:
-    float walk_speed = 1;
+    float walk_speed = 2;
 
 
 };
