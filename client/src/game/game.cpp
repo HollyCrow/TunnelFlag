@@ -27,7 +27,6 @@ void Game::update() {
     this->local_player.velocity = keyboard.player_move.get_multiple(local_player.get_walk_speed());
     this->local_player.update_position();
     for (int p = 0; p < player_number; p++) {
-        printf("%f", players[p].velocity.x);
         players[p].update_position();
     }
 }
