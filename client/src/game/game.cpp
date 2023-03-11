@@ -38,12 +38,10 @@ void Game::click_event() {
     if (!(0 < global_x < width && 0 < global_y < height))return;
     if (keyboard.mouseclick[0]){
         map[global_x][global_y] = 0;
-        printf("leftclick\n");
         keyboard.mouseclick[0] = false;
     }
     if (keyboard.mouseclick[1]){
         map[global_x][global_y] = 1;
-        printf("rightclick\n");
         keyboard.mouseclick[1] = false;
     }
 
