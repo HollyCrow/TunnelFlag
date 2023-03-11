@@ -27,6 +27,8 @@ public:
     float scale = 1;
     Vector2 player_move = Vector2(0, 0);
 
+    bool mouseclick[2] = {false, false};
+    int mouse[2];
 
 
 
