@@ -57,13 +57,17 @@ void Camera::draw_background(Vector2 offset) {
 }
 
 void Camera::draw_map(Vector2 offset) {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 100);
     for (int h = 0; h < game.height; h++) {
         for (int w = 0; w < game.width; w++) {
-            rect.x = (w * 100) * scale + offset.x;
-            rect.y = (h * 100) * scale + offset.y; //wut??
-            rect.w = 50 * scale;
-            rect.h = 50 * scale;
+            if (game.map[w][h] == 1){
+                SDL_SetRenderDrawColor(renderer, 255, 0, 255, 100);
+            }else {
+                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
+            }
+            rect.x = (w * game.scale) * scale + offset.x;
+            rect.y = (h * game.scale) * scale + offset.y; //wut??
+            rect.w = (game.scale/2) * scale;
+            rect.h = (game.scale/2) * scale;
             SDL_RenderFillRect(renderer, &rect);
         }
     }
