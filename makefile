@@ -8,6 +8,8 @@ client: client_main objects utils game camera
 
 
 client_main: client/src/main.cpp
+	mkdir -p build
+	mkdir -p build/client
 	g++ -c client/src/main.cpp -o build/client/main.o -lSDL2 -pthread
 
 camera: client/src/camera/camera.cpp client/src/camera/camera.h
