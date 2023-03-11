@@ -11,18 +11,9 @@
 #include "../objects/player.h"
 
 
-struct playerKeybinds{
-    SDL_Scancode up = SDL_SCANCODE_W;
-    SDL_Scancode down = SDL_SCANCODE_S;
-    SDL_Scancode left = SDL_SCANCODE_A;
-    SDL_Scancode right = SDL_SCANCODE_D;
-};
 
-struct Keybinds{
-    playerKeybinds player;
-};
 
-class Game{
+class Game {
 public:
     int ip;
     int width;
@@ -33,13 +24,12 @@ public:
     Player players[4];
 
     Game(int, Vector2);
+
     Game();
 
     void update();
 
 };
-
-
 
 
 #endif //TUNNELFLAG_GAME_H
