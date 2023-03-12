@@ -16,9 +16,12 @@
 class Game {
 public:
     int ip;
+    char server_name[100] = "Sever name";
+
+
     int width;
     int height;
-    short map[128][128];
+    short map[128][128]{};
     int player_number = 4;
     const int scale = 100;
     Player local_player;
@@ -31,6 +34,8 @@ public:
     void update();
 
     void click_event();
+
+    void check_break();
 
 };
 

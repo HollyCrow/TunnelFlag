@@ -44,6 +44,13 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
             mouseclick[1] = true;
             game.click_event();
         }
+    }else if (event.type == SDL_MOUSEBUTTONUP) {
+        auto button = SDL_GetMouseState(&mouse[0], &mouse[1]);
+        if (event.button.button == SDL_BUTTON_LEFT) {
+            mouseclick[0] = false;
+        } else if (event.button.button == SDL_BUTTON_RIGHT) {
+            mouseclick[1] = false;
+        }
     }
 
 

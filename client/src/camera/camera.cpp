@@ -60,9 +60,9 @@ void Camera::draw_map(Vector2 offset) {
     for (int h = 0; h < game.height; h++) {
         for (int w = 0; w < game.width; w++) {
             if (game.map[w][h] == 1){
-                SDL_SetRenderDrawColor(renderer, 255, 0, 255, 100);
+                SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
             }else {
-                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 100);
+                SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
             }
             rect.x = (w * game.scale) * scale + offset.x;
             rect.y = (h * game.scale) * scale + offset.y; //wut??

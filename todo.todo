@@ -6,7 +6,7 @@ client
  - [ ] Texture loading
  - [ ] Menu screen
  - [-] Map drawing
- - [ ] UDP client
+ - [ ] TCP client
  - [ ] Player physicsdsds
  - [-] Map interaction
  - [ ] Marching squares map

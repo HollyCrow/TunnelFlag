@@ -8,6 +8,7 @@
 #include "game/game.h"
 #include "utils/keyboard.h"
 #include "camera/camera.h"
+#include "network/client.h"
 
 using namespace std;
 
@@ -46,34 +47,42 @@ void keypress_thread() { while (!closing) { keyboard.listen(); }}
 
 int main() {
     /*  -------------------- Window and game initialisation -------------------------  */
-    printf("\n - Tunnel Flag - \n\n");
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
-    SDL_RenderSetScale(renderer, 1, 1);
-    SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
+//    printf("\n - Tunnel Flag - \n\n");
+//    SDL_Init(SDL_INIT_VIDEO);
+//    SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
+//    SDL_RenderSetScale(renderer, 1, 1);
+//    SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
+//
+//    /*  --------------------------- Texture loading --------------------------------  */
+//
+//    SDL_Surface *surface = SDL_LoadBMP("assets/background.png");
+//    background_texture = SDL_CreateTextureFromSurface(renderer, surface);
+//    SDL_FreeSurface(surface);
 
-    /*  --------------------------- Texture loading --------------------------------  */
-    SDL_Surface *surface = SDL_LoadBMP("assets/background.png");
-    background_texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FreeSurface(surface);
+    std::string message = "hello mate wankers";
 
     /*  ------------------------------ Main menu -----------------------------------  */
 
+    TCP client;
+    client.connect(2130706433, 25567);
+
+    client.send(message);
+    client.receive();
 
 
 
     /*  -----------------------------------------------------------------------------  */
-    game.local_player.scale = Vector2(100, 100);
-    game.local_player.set_walk_speed(5);
-    game.players[0].velocity = Vector2(1, 1);
-    std::thread calc_thread(&mover);
-    std::thread keys_thread(&keypress_thread);
+//    game.local_player.scale = Vector2(100, 100);
+//    game.local_player.set_walk_speed(5);
+//    game.players[0].velocity = Vector2(1, 1);
+////    std::thread calc_thread(&mover);
+//    std::thread keys_thread(&keypress_thread);
 
 
-    while (!closing) {
-        camera.draw_game();
-        camera.scale = keyboard.scale;
-    }
+//    while (!closing) {
+//        camera.draw_game();
+//        camera.scale = keyboard.scale;
+//    }
 
 
 
@@ -82,8 +91,8 @@ int main() {
 
     // -- END -- Close resources
     /*  -----------------------------------------------------------------------------  */
-    calc_thread.join();
-    keys_thread.join();
+//    calc_thread.join();
+//    keys_thread.join();
 
     SDL_DestroyTexture(background_texture);
 

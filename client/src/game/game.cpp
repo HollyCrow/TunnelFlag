@@ -5,19 +5,21 @@
 #include "game.h"
 #include "../utils/vector2.h"
 #include "../utils/keyboard.h"
+#include "../camera/camera.h"
 
 using namespace std;
 
 extern Keyboard keyboard;
 extern int screen_width;
 extern int screen_height;
+extern Camera camera;
 
 Game::Game() : Game(0, Vector2(100, 50)) {}
 
 Game::Game(int ip, Vector2 map_dimensions) {
 
-    this->width = map_dimensions.x;
-    this->height = map_dimensions.y;
+    this->width = (int) map_dimensions.x;
+    this->height = (int) map_dimensions.y;
     this->ip = ip;
     this->local_player.position = Vector2(0, 0);
     this->players->set_walk_speed(10);
@@ -32,25 +34,17 @@ Game::Game(int ip, Vector2 map_dimensions) {
 
 void Game::click_event() {
     // Check UI clicking etc
+}
 
-    int global_x = floor((keyboard.mouse[0]+local_player.position.x-(screen_width/2))/scale);
-    int global_y = floor((keyboard.mouse[1]+local_player.position.y-(screen_height/2))/scale);
-    if (!(0 < global_x < width && 0 < global_y < height))return;
-    if (keyboard.mouseclick[0]){
-        map[global_x][global_y] = 0;
-        keyboard.mouseclick[0] = false;
-    }
-    if (keyboard.mouseclick[1]){
-        map[global_x][global_y] = 1;
-        keyboard.mouseclick[1] = false;
-    }
+void Game::check_break() {
 
-
-
+    // I actually wanna kill myself
 }
 
 
+
 void Game::update() {
+    check_break();
     this->local_player.velocity = keyboard.player_move.get_multiple(local_player.get_walk_speed());
     this->local_player.update_position();
     for (int p = 0; p < player_number; p++) {
