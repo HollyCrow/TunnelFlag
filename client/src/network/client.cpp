@@ -3,11 +3,16 @@
 //
 
 #include "client.h"
+#include "../game/game.h"
 #include <iostream>
 #include <cstring>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <rapidjson/document.h>
+
+extern Game game;
+extern bool closing;
 
 using namespace std;
 
@@ -24,10 +29,10 @@ void TCP::connect(int ip_address, int port) {
     sockaddr_in server_address{};
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(port);
-    server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server_address.sin_addr.s_addr = ip_address;//inet_addr("127.0.0.1");
 
 
-    if (::connect(sock, (sockaddr*)&server_address, sizeof(server_address)) == -1) {
+    if (::connect(sock, (sockaddr *) &server_address, sizeof(server_address)) == -1) {
         cerr << "Failed to connect to server" << endl;
         close(sock);
         sock = -1;
@@ -48,31 +53,46 @@ int TCP::send(string &message) {
     return 0;
 }
 
-int TCP::receive() {
+void TCP::receive() {
     if (sock == -1) {
         cerr << "Not connected to server" << endl;
-        return -1;
+        return;
     }
 
 
-    int bytes_received = recv(sock, buffer, sizeof(buffer), 0);
-    if (bytes_received == -1) {
-        cerr << "Failed to receive data from server" << endl;
-        close(sock);
-        sock = -1;
-        return -1;
-    }
-    if (bytes_received == 0) {
-        cout << "Server disconnected" << endl;
-        close(sock);
-        sock = -1;
-        return -1;
-    }
+    while (!closing){
+        int bytes_received = recv(sock, buffer, sizeof(buffer), 0);
+        if (bytes_received == -1) {
+            cerr << "Failed to receive data from server" << endl;
+            close(sock);
+            sock = -1;
+            return;
+        }
+        if (bytes_received == 0) {
+            cout << "Server disconnected" << endl;
+            close(sock);
+            sock = -1;
+            return;
+        }
 
-    cout << "Received " << bytes_received << " bytes from server: " << buffer << endl;
-    // Process the received data here
+        cout << "Received " << bytes_received << " bytes from server: " << buffer << endl;
+        rapidjson::Document document;
+        document.Parse(buffer);
+        string PACKETID =  document["PACKETID"].GetString();
 
-    return bytes_received;
+
+        if (PACKETID == "PLAYER_MOVE"){
+            rapidjson::Value& x_value = document["DATA"]["X"];
+            rapidjson::Value& y_value = document["DATA"]["Y"];
+
+            Vector2 position(x_value.GetFloat(), y_value.GetFloat());
+
+            rapidjson::Value& ID_value = document["DATA"]["ID"];
+            int id = ID_value.GetInt();
+
+            game.PLAYER_MOVE(id, position);
+        }
+    }
 }
 
 

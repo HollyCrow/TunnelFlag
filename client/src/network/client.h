@@ -10,11 +10,12 @@ class TCP{
 public:
     char buffer[4096];
 
+
     TCP();
 
     void connect(int, int);
     int send(std::string&);
-    int receive();
+    void receive();
 
 private:
     int sock;

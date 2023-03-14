@@ -29,6 +29,7 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {  // Closes the window, if user stops running
         closing = true;
+        std::cout << "closing...\n";
     } else if (event.type == SDL_MOUSEWHEEL) {
         if (event.wheel.y > 0) {
             this->scale = this->scale * 1.1;
