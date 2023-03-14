@@ -26,8 +26,10 @@ public:
     short map[128][128]{};
     const int scale = 100;
     Player local_player;
+    int local_player_id;
+    int last_local_player_location;
     Player players[128];
-    int player_number;
+    int player_number = 5;
     TCP client;
 
 
@@ -43,6 +45,8 @@ public:
     void click_event();
 
     void check_break();
+
+    void game_tick();
 
     void PLAYER_MOVE(int, Vector2);
 

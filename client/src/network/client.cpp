@@ -49,7 +49,7 @@ int TCP::send(string &message) {
     }
     ::send(sock, message.c_str(), message.size(), 0);
 
-    cout << "Sent " << message.length() << " bytes to server: " << message << endl;
+    cout << "Sent " << message.length() << " bytes to server\n";//: " << message << endl;
     return 0;
 }
 
@@ -75,7 +75,7 @@ void TCP::receive() {
             return;
         }
 
-        cout << "Received " << bytes_received << " bytes from server: " << buffer << endl;
+        cout << "Received " << bytes_received << " bytes from server\n";//: " << buffer << endl;
         rapidjson::Document document;
         document.Parse(buffer);
         string PACKETID =  document["PACKETID"].GetString();
