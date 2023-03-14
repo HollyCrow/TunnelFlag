@@ -10,7 +10,7 @@
 //}
 
 Player::Player() {
-    this->position = Vector2(0, 0);
+    this->position = Vector2(10, 10);
     this->scale = Vector2(100, 100);
     this->movable = true;
 }

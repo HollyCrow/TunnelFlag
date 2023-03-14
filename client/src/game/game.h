@@ -9,6 +9,7 @@
 
 #include "../utils/vector2.h"
 #include "../objects/player.h"
+#include "../network/client.h"
 
 
 
@@ -16,26 +17,34 @@
 class Game {
 public:
     int ip;
+    int port;
     char server_name[100] = "Sever name";
 
 
     int width;
     int height;
     short map[128][128]{};
-    int player_number = 4;
     const int scale = 100;
     Player local_player;
-    Player players[4];
+    Player players[128];
+    int player_number;
+    TCP client;
 
-    Game(int, Vector2);
+
+    Game(int, int, Vector2);
 
     Game();
+
+    void Request_server();
+    void Process_server();
 
     void update();
 
     void click_event();
 
     void check_break();
+
+    void PLAYER_MOVE(int, Vector2);
 
 };
 
