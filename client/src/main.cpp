@@ -47,6 +47,13 @@ void packet_listener() {
     game.client.receive();
 }
 
+void packet_sender(){
+    while (!closing){
+        SDL_Delay(100);
+        game.game_tick();
+    }
+}
+
 
 int main() {
     /*  -------------------- Window and game initialisation -------------------------  */
@@ -77,6 +84,7 @@ int main() {
     std::thread calc_thread(&mover);
     std::thread keys_thread(&keypress_thread);
     std::thread packet_thread(&packet_listener);
+    std::thread packet_sender_thread(&packet_sender);
 
 
 
@@ -100,6 +108,7 @@ int main() {
 
     SDL_DestroyWindow(window);
     SDL_Quit();
+    cout << "Closing...";
     terminate(); //TODO: close packet thread properly
 
     return 0;

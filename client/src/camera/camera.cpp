@@ -28,6 +28,9 @@ void Camera::set_color(Color color) {
 void Camera::draw_players(Vector2 offset) {
     SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
     for (int p = 0; p < game.player_number; p++) {
+        if (p == game.local_player_id){
+            continue;
+        }
         set_color(game.players[p].color);
         rect.x = (game.players[p].position.x * scale + offset.x) - (game.players[p].scale.x / 2) * scale;
         rect.y = (game.players[p].position.y * scale + offset.y) - (game.players[p].scale.x / 2) * scale;

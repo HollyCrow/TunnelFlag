@@ -34,8 +34,8 @@ Game::Game(int ip, int port, Vector2 map_dimensions) {
     for (int p = 0; p < player_number; p++) {
         players[p].velocity = Vector2::random_vector2(1).get_multiple(players[p].get_walk_speed());
     }
-    for (int h = 0; h < height; h++){
-        std::fill_n(map[h], width, 1);
+    for (int w = 0; w < width; w++){
+        std::fill_n(map[w], height, 1);
     }
     map[10][30] = 0;
 }
@@ -76,13 +76,31 @@ void Game::PLAYER_MOVE(int player, Vector2 position) {
     }
 }
 
+void Game::game_tick() {
+    int int_location = local_player.position.x * 100 + local_player.position.y;
+    if (int_location == last_local_player_location){
+        return;
+    }
+    std::string player_location_packet = "{\n"
+                                         "    \"PACKETID\": \"PLAYER_MOVE\",\n"
+                                         "    \n"
+                                         "    \"DATA\" : {\n"
+                                         "        \"X\": "+to_string(local_player.position.x)+",\n"
+                                         "        \"Y\": "+to_string(local_player.position.y)+",\n"
+                                         "        \"ID\": "+to_string(local_player_id)+"\n"
+                                         "    }\n"
+                                         "}";
+    client.send(player_location_packet);
+    last_local_player_location = int_location;
+}
+
 
 
 void Game::update() {
     check_break();
     this->local_player.velocity = keyboard.player_move.get_multiple(local_player.get_walk_speed());
     this->local_player.update_position();
-//    for (int p = 0; p < player_number; p++) {
-//        players[p].update_position();
-//    }
+    for (int p = 0; p < player_number; p++) {
+        players[p].update_position();
+    }
 }
