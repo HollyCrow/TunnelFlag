@@ -100,7 +100,7 @@ void Game::update() {
     check_break();
     this->local_player.velocity = keyboard.player_move.get_multiple(local_player.get_walk_speed());
     this->local_player.update_position();
-    for (int p = 0; p < player_number; p++) {
-        players[p].update_position();
-    }
+//    for (int p = 0; p < player_number; p++) {
+//        players[p].update_position();
+//    }
 }
