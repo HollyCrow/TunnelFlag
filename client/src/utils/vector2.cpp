@@ -1,13 +1,8 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 15/03/23.
 //
 
 #include "vector2.h"
-#include <cmath>
-#include <ctime>
-#include <iostream>
-
-
 Vector2::Vector2() {
     this->x = 0;
     this->y = 0;
