@@ -1,10 +1,9 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 15/03/23.
 //
 
 #ifndef TUNNELFLAG_VECTOR2_H
 #define TUNNELFLAG_VECTOR2_H
-
 class Vector2{
 public:
     double x;
@@ -38,9 +37,5 @@ public:
 
     static Vector2 random_vector2(float);
 };
-
-
-
-
 
 #endif //TUNNELFLAG_VECTOR2_H
