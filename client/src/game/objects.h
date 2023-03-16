@@ -11,6 +11,7 @@ struct Player{
     std::string name;
     Vector2 position;
     int team;
+    Vector2 scale = Vector2(100, 100);
 };
 
 #endif //TUNNELFLAG_OBJECTS_H

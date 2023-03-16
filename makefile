@@ -3,7 +3,7 @@ all: client server
 
 # ---------- CLIENT ----------
 
-client: client_main network utils game #camera
+client: client_main network utils game camera
 	g++ build/client/*.o -o build/client.rar -lSDL2 -pthread
 
 client_main: client/src/main.cpp
@@ -24,5 +24,8 @@ utils: client/src/utils/color.cpp client/src/utils/color.h client/src/utils/keyb
 
 network: client/src/network/network.cpp client/src/network/network.h
 	g++ -c client/src/network/network.cpp -o build/client/network.o
+
+camera: client/src/camera/camera.cpp client/src/camera/camera.h
+	g++ -c client/src/camera/camera.cpp -o build/client/camera.o
 
 # ---------- SERVER ----------

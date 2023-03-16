@@ -26,3 +26,7 @@ Game::Game(ServerInfo serverInfo, Map map, int number_of_players, int localPlaye
     this->number_of_players = number_of_players;
     this->localPlayerID = localPlayerID;
 }
+
+void Game::ClickEvent() {
+
+}
