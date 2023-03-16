@@ -1,23 +1,10 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 16/03/23.
 //
 
 #ifndef TUNNELFLAG_COLOR_H
 #define TUNNELFLAG_COLOR_H
-
-/*
- * # Color
- * ### Simple class to store a color in rgba format
- *
- * ## Parameters
- * ### uint8_t r: red value
- * ### uint8_t g: green value
- * ### uint8_t b: blue value
- * ### uint8_t a: alpha value
- */
-
 #include <cstdint>
-
 
 class Color{
 public:
@@ -29,7 +16,4 @@ public:
     Color(uint8_t, uint8_t, uint8_t, uint8_t);
 
 };
-
-
-
 #endif //TUNNELFLAG_COLOR_H

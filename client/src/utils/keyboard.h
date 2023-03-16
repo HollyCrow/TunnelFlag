@@ -1,10 +1,9 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 16/03/23.
 //
 
 #ifndef TUNNELFLAG_KEYBOARD_H
 #define TUNNELFLAG_KEYBOARD_H
-
 #include <SDL2/SDL.h>
 #include <iostream>
 #include "vector2.h"
@@ -37,5 +36,4 @@ public:
     int number;
     void listen();
 };
-
 #endif //TUNNELFLAG_KEYBOARD_H

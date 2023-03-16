@@ -1,6 +1,7 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 16/03/23.
 //
+
 #include "keyboard.h"
 
 #include <iostream>
@@ -40,10 +41,10 @@ void Keyboard::listen() { //TODO: System for single click detection and for held
         auto button = SDL_GetMouseState(&mouse[0], &mouse[1]);
         if (event.button.button == SDL_BUTTON_LEFT) {
             mouseclick[0] = true;
-            game.click_event();
+            game.ClickEvent();
         } else if (event.button.button == SDL_BUTTON_RIGHT) {
             mouseclick[1] = true;
-            game.click_event();
+            game.ClickEvent();
         }
     }else if (event.type == SDL_MOUSEBUTTONUP) {
         auto button = SDL_GetMouseState(&mouse[0], &mouse[1]);

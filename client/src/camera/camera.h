@@ -1,9 +1,10 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 16/03/23.
 //
 
 #ifndef TUNNELFLAG_CAMERA_H
 #define TUNNELFLAG_CAMERA_H
+
 
 #include <SDL2/SDL.h>
 
@@ -30,12 +31,9 @@ public:
 
     void draw_players(Vector2);
 
-    void draw_local_player(Vector2);
-
     void draw_map(Vector2);
 
 
 };
-
 
 #endif //TUNNELFLAG_CAMERA_H

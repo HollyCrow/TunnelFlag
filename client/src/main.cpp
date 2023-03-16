@@ -4,112 +4,97 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <thread>
-
+#include "network/network.h"
 #include "game/game.h"
-#include "utils/keyboard.h"
 #include "camera/camera.h"
-#include "network/client.h"
+#include "utils/keyboard.h"
 
 using namespace std;
 
-int screen_width = 1680;
-int screen_height = 1050;
+int screen_width = 1920;
+int screen_height = 1080;
 SDL_Window *window = nullptr;       //SDL window and renderer objects
 SDL_Renderer *renderer = nullptr;
-
-Game game;                          //Game object, default initialise, does nothing until activated.
-Camera camera;                      //Camera object, also does nothing until camera.draw_game() run
-
-
-SDL_Texture *background_texture;
-/*
- * Place other SDL texture objects here
- *
- *
- */
-
-
-Keybinds keys;                      // Keybind object, change to change keybinds of game.
 SDL_Event event;                    // Key events, for single press detection.
-Keyboard keyboard;                  // Key object for prolonged detection and SDL_Event parsing
 
 bool closing = false;               // Variable to change to close game, all threads should check this variable to close.
 
-void mover() {
-    while (!closing) {
-        SDL_Delay(10);
-        game.update();
-    }
-} //Threads
-void keypress_thread() { while (!closing) { keyboard.listen(); }}
 
-void packet_listener() {
-    game.client.receive();
+Client client;
+Game game;
+Keyboard keyboard;
+Keybinds keys;
+Camera camera;
+
+void network_thread_function(){
+    std::string message = "init";
+    client.send(message);
+    client.listen();
 }
 
-void packet_sender(){
+void keyboard_thread_function(){
+    while(!closing){
+        keyboard.listen();
+        camera.scale = keyboard.scale;
+    }
+}
+
+void physics_thread_function(){
     while (!closing){
-        SDL_Delay(100);
-        game.game_tick();
+        game.update();
+        SDL_Delay(5);
     }
 }
+
 
 
 int main() {
     /*  -------------------- Window and game initialisation -------------------------  */
-    printf("\n - Tunnel Flag - \n\n");
+    cout << "\nStarting TunnelFlag...\n";
+    SDL_GetRendererOutputSize(renderer, &screen_width, &screen_height); //Try to get current screen rez
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer, 1, 1);
-    SDL_SetWindowTitle(window, "\n - Tunnel Flag - \n");
+    SDL_SetWindowTitle(window, "Tunnel Flag");
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
-    /*  --------------------------- Texture loading --------------------------------  */
-
-//    SDL_Surface *surface = SDL_LoadBMP("assets/background.png");
-//    background_texture = SDL_CreateTextureFromSurface(renderer, surface);
-//    SDL_FreeSurface(surface);
 
     /*  ------------------------------ Main menu -----------------------------------  */
 
+    /*  -------------------------- Connect to server -------------------------------  */
 
 
-
-    /*  -----------------------------------------------------------------------------  */
-    cout << "connecting to server";
-    game.client.connect(game.ip, game.port);
-    game.Request_server();
-
-
-    cout << "starting threads\n";
-    std::thread calc_thread(&mover);
-    std::thread keys_thread(&keypress_thread);
-    std::thread packet_thread(&packet_listener);
-    std::thread packet_sender_thread(&packet_sender);
-
-
-
-
-    while (!closing) {
-        camera.draw_game();
-        camera.scale = keyboard.scale;
+    cout << "Connecting to server...\n";
+//    client.connect("127.0.0.1", 25567);
+    while(!client.connect("127.0.0.1", 25567) && !closing){
+        cout << "Failed to connect to server, trying again in 500ms\n";
+        SDL_Delay(500);
     }
+    cout << "Connected to server\n";
 
 
+
+    /*  -------------------------------- Game -------------------------------------  */
+
+    thread network_thread(&network_thread_function);
+    thread keyboard_thread(&keyboard_thread_function);
+    thread physics_thread(&physics_thread_function);
+
+    while (!closing){
+        camera.draw_game();
+    }
 
 
 
 
     // -- END -- Close resources
     /*  -----------------------------------------------------------------------------  */
-    calc_thread.join();
-    keys_thread.join();
 
-    SDL_DestroyTexture(background_texture);
+
 
     SDL_DestroyWindow(window);
     SDL_Quit();
-    cout << "Closing...";
-    terminate(); //TODO: close packet thread properly
-
+    cout << "Closing...\n";
+    terminate();
     return 0;
 }
