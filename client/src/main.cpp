@@ -35,6 +35,7 @@ void network_thread_function(){
 void keyboard_thread_function(){
     while(!closing){
         keyboard.listen();
+        camera.scale = keyboard.scale;
     }
 }
 
