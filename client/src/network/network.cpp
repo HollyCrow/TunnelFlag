@@ -59,7 +59,7 @@ void Client::send(std::string message) {
     }
     ::send(sock, message.c_str(), message.size(), 0);
 
-    std::cout << "Sent " << message.length() << " bytes to server\n";//: " << message << endl;
+//    std::cout << "Sent " << message.length() << " bytes to server\n";//: " << message << endl;
 }
 
 void Client::listen() {

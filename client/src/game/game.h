@@ -5,6 +5,7 @@
 #ifndef TUNNELFLAG_GAME_H
 #define TUNNELFLAG_GAME_H
 #include "objects.h"
+#include "../utils/vector2.h"
 
 struct Map{
     int width;
@@ -35,6 +36,13 @@ public:
 
     void update();
     void ClickEvent();
+
+    void sendServerData();
+
+    void playerMove(int, Vector2);
+
+private:
+    Vector2 old_pos;
 
 };
 

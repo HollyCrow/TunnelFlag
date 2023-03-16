@@ -26,10 +26,13 @@ Keyboard keyboard;
 Keybinds keys;
 Camera camera;
 
-void network_thread_function(){
+void network_listen_thread_function(){
     std::string message = "init";
     client.send(message);
     client.listen();
+}
+void network_send_thread_function(){
+    game.sendServerData();
 }
 
 void keyboard_thread_function(){
@@ -56,14 +59,14 @@ int main() {
     SDL_CreateWindowAndRenderer(screen_width, screen_height, 0, &window, &renderer);
     SDL_RenderSetScale(renderer, 1, 1);
     SDL_SetWindowTitle(window, "Tunnel Flag");
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+//    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 
     /*  ------------------------------ Main menu -----------------------------------  */
 
     /*  -------------------------- Connect to server -------------------------------  */
 
-
+    thread keyboard_thread(&keyboard_thread_function);
     cout << "Connecting to server...\n";
 //    client.connect("127.0.0.1", 25567);
     while(!client.connect("127.0.0.1", 25567) && !closing){
@@ -71,14 +74,14 @@ int main() {
         SDL_Delay(500);
     }
     cout << "Connected to server\n";
+    thread network_listen_thread(&network_listen_thread_function);
+    thread network_send_thread(&network_send_thread_function);
+    thread physics_thread(&physics_thread_function);
 
 
 
     /*  -------------------------------- Game -------------------------------------  */
 
-    thread network_thread(&network_thread_function);
-    thread keyboard_thread(&keyboard_thread_function);
-    thread physics_thread(&physics_thread_function);
 
     while (!closing){
         camera.draw_game();
@@ -92,9 +95,13 @@ int main() {
 
 
 
+    physics_thread.join();
+    keyboard_thread.join();
     SDL_DestroyWindow(window);
     SDL_Quit();
     cout << "Closing...\n";
-    terminate();
+    client.disconnect();
+    network_listen_thread.join();
+//    terminate();
     return 0;
 }
