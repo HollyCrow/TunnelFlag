@@ -38,6 +38,13 @@ void keyboard_thread_function(){
     }
 }
 
+void physics_thread_function(){
+    while (!closing){
+        game.update();
+        SDL_Delay(5);
+    }
+}
+
 
 
 int main() {
@@ -70,6 +77,7 @@ int main() {
 
     thread network_thread(&network_thread_function);
     thread keyboard_thread(&keyboard_thread_function);
+    thread physics_thread(&physics_thread_function);
 
     while (!closing){
         camera.draw_game();

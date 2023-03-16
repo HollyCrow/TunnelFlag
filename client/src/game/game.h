@@ -33,7 +33,9 @@ public:
     Game();
     Game(ServerInfo, Map, int, int); // Parameters are in the order of the above declaration
 
+    void update();
     void ClickEvent();
+
 };
 
 #endif //TUNNELFLAG_GAME_H
