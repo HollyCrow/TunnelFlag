@@ -4,7 +4,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <thread>
-
+#include "network/network.h"
 
 using namespace std;
 
@@ -14,9 +14,10 @@ SDL_Window *window = nullptr;       //SDL window and renderer objects
 SDL_Renderer *renderer = nullptr;
 SDL_Event event;                    // Key events, for single press detection.
 
-
 bool closing = false;               // Variable to change to close game, all threads should check this variable to close.
 
+
+Client client;
 
 
 int main() {
@@ -38,6 +39,12 @@ int main() {
 
     /*  -----------------------------------------------------------------------------  */
 
+
+    while(!client.connect(1, 1)){
+        cout << "Failed to connect to server, trying again in 500ms\n";
+        SDL_Delay(500);
+    }
+    cout << "Connected to server\n";
 
 
 
