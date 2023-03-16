@@ -10,6 +10,7 @@ struct Map{
     int width;
     int height;
     int map[128][128];
+    double scale = 100;
 };
 
 struct ServerInfo{
@@ -31,6 +32,8 @@ public:
 
     Game();
     Game(ServerInfo, Map, int, int); // Parameters are in the order of the above declaration
+
+    void ClickEvent();
 };
 
 #endif //TUNNELFLAG_GAME_H

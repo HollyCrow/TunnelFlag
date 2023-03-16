@@ -8,13 +8,14 @@
 
 class Client{
 public:
+    char buffer[4096];
 
     Client();
 
-    bool connect(int, int);
+    bool connect(const std::string&, int);
     void send(std::string);
     void listen(); //To be run on seperate thread. Runs on infinite loop
-    void disconnect();
+    void disconnect() const;
 private:
     int sock; //No touchy.
 };

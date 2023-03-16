@@ -5,6 +5,9 @@
 #include <SDL2/SDL.h>
 #include <thread>
 #include "network/network.h"
+#include "game/game.h"
+#include "camera/camera.h"
+#include "utils/keyboard.h"
 
 using namespace std;
 
@@ -18,6 +21,23 @@ bool closing = false;               // Variable to change to close game, all thr
 
 
 Client client;
+Game game;
+Keyboard keyboard;
+Keybinds keys;
+Camera camera;
+
+void network_thread_function(){
+    std::string message = "init";
+    client.send(message);
+    client.listen();
+}
+
+void keyboard_thread_function(){
+    while(!closing){
+        keyboard.listen();
+    }
+}
+
 
 
 int main() {
@@ -33,19 +53,27 @@ int main() {
 
     /*  ------------------------------ Main menu -----------------------------------  */
 
+    /*  -------------------------- Connect to server -------------------------------  */
 
 
-
-
-    /*  -----------------------------------------------------------------------------  */
-
-
-    while(!client.connect(1, 1)){
+    cout << "Connecting to server...\n";
+//    client.connect("127.0.0.1", 25567);
+    while(!client.connect("127.0.0.1", 25567) && !closing){
         cout << "Failed to connect to server, trying again in 500ms\n";
         SDL_Delay(500);
     }
     cout << "Connected to server\n";
 
+
+
+    /*  -------------------------------- Game -------------------------------------  */
+
+    thread network_thread(&network_thread_function);
+    thread keyboard_thread(&keyboard_thread_function);
+
+    while (!closing){
+        camera.draw_game();
+    }
 
 
 
@@ -58,5 +86,6 @@ int main() {
     SDL_DestroyWindow(window);
     SDL_Quit();
     cout << "Closing...\n";
+    terminate();
     return 0;
 }
