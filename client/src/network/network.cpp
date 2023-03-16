@@ -84,7 +84,7 @@ void Client::listen() {
             return;
         }
 
-        std::cout << "Received " << bytes_received << " bytes from server: " << buffer << "\n";
+        std::cout << "Received " << bytes_received << " bytes from server\n";//: " << buffer << "\n";
 
         rapidjson::Document document;
         document.Parse(buffer);
@@ -95,6 +95,36 @@ void Client::listen() {
         std::string PACKETID =  document["PACKETID"].GetString();
 
         std::cout << PACKETID << "\n";
+
+
+        if (PACKETID == "INIT"){
+            game.server.name = document["DATA"]["SERVER_NAME"].GetString();
+
+
+            game.number_of_players = document["DATA"]["PLAYER_NUMBER"].GetInt();
+            game.localPlayerID = document["DATA"]["YOUR_ID"].GetInt();
+
+            rapidjson::Value& players = document["DATA"]["PLAYERS"];
+            for (rapidjson::SizeType i = 0; i < players.Size(); i++) {
+                game.players[i].name = players[i]["NAME"].GetString();
+                game.players[i].position.x = players[i]["X"].GetInt();
+                game.players[i].position.y = players[i]["Y"].GetInt();
+            }
+
+            rapidjson::Value& map = document["DATA"]["MAP"];
+            game.map.width = map["WIDTH"].GetInt();
+            game.map.height = map["HEIGHT"].GetInt();
+            rapidjson::Value& mapData = map["MAP"];
+
+            for (rapidjson::SizeType i = 0; i < mapData.Size(); i++) {
+                const rapidjson::Value& rowData = mapData[i];
+                for (rapidjson::SizeType j = 0; j < rowData.Size(); j++) {
+                    game.map.map[i][j] = (rowData[j].GetInt());
+                }
+            }
+        }
+
+
 
 
 
