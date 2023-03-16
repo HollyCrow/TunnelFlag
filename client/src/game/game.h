@@ -1,56 +1,36 @@
 //
-// Created by holly on 09/03/23.
+// Created by holly on 15/03/23.
 //
 
 #ifndef TUNNELFLAG_GAME_H
 #define TUNNELFLAG_GAME_H
+#include "objects.h"
 
-#include <SDL2/SDL.h>
-
-#include "../utils/vector2.h"
-#include "../objects/player.h"
-#include "../network/client.h"
-
-
-
-
-class Game {
-public:
-    int ip;
-    int port;
-    char server_name[100] = "Sever name";
-
-
+struct Map{
     int width;
     int height;
-    short map[128][128]{};
-    const int scale = 100;
-    Player local_player;
-    int local_player_id;
-    int last_local_player_location;
-    Player players[128];
-    int player_number = 5;
-    TCP client;
-
-
-    Game(int, int, Vector2);
-
-    Game();
-
-    void Request_server();
-    void Process_server();
-
-    void update();
-
-    void click_event();
-
-    void check_break();
-
-    void game_tick();
-
-    void PLAYER_MOVE(int, Vector2);
-
+    int map[128][128];
 };
 
+struct ServerInfo{
+    int port;
+    int address;
+    std::string name;
+};
+
+
+class Game{
+public:
+    ServerInfo server;
+    Map map;
+    Player players[64];
+    int number_of_players;
+    int localPlayerID;
+
+    bool connected; //Check to stop client from attempting to get server info from localhost while loading
+
+    Game();
+    Game(ServerInfo, Map, int, int); // Parameters are in the order of the above declaration
+};
 
 #endif //TUNNELFLAG_GAME_H
